@@ -15,7 +15,7 @@ terraform {
 
 # variables
 variable "resource_group_name" {
-  type =  "list"
+  type =  list
   default =  [
       {
         "name" = "rg-mgmt-prod-westeu-001-tf"
