@@ -93,5 +93,7 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = var.vnet.shared_vnet.name
   address_prefixes     = each.value["address_prefixes"]
   depends_on           = [azurerm_virtual_network.vnet]
-  tags                 = azurerm_resource_group.rg001.tags
+  tags = {
+    "env" = "prod"
+  }
 }
