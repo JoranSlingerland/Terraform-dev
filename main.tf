@@ -13,12 +13,33 @@ terraform {
 
 }
 
+# variables
+variable "resource_group_name" {
+  type =  "list"
+  default =  [
+      {
+        "name" = "rg-mgmt-prod-westeu-001-tf"
+      },
+      {
+        "name" = "rg-network-prod-westeu-tf"
+      }
+  ]
+}
+
 provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg-mgmt-pord-westeu-001-tf" {
-  name     = "rg-mgmt-pord-westeu-001-tf"
+resource "azurerm_resource_group" "rg000" {
+  name = var.resource_group_name[0].name
+  location = "westeurope"
+  tags = {
+    "env" = "prod"
+  }
+}
+
+resource "azurerm_resource_group" "rg001" {
+  name = var.resource_group_name[1].name
   location = "westeurope"
   tags = {
     "env" = "prod"
