@@ -6,11 +6,11 @@ variable "region" {
 variable "resource_groups" {
   type = map(any)
   default = {
-    mgmt = {
-      name = "rg-mgmt-prod-westeu-001-tf"
-    }
     network = {
       name = "rg-network-prod-westeu-001-tf"
+    }
+    mgmt = {
+      name = "rg-mgmt-prod-westeu-001-tf"
     }
   }
 }
