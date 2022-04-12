@@ -32,6 +32,9 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = var.resource_groups.network["name"]
   address_space       = var.vnet.shared_vnet.address_space
   tags                = var.tags
+  depends_on = [
+    azurerm_resource_group.rg
+  ]
 }
 
 resource "azurerm_subnet" "subnet" {
