@@ -62,7 +62,7 @@ resource "azurerm_subnet" "subnet" {
 
 resource "azurerm_virtual_network_peering" "hub_to_spoke" {
   for_each                  = var.spoke_vnets
-  name                      = "peering to ${each.value.name}"
+  name                      = "PeeringTo${each.value.name}"
   resource_group_name       = var.resource_groups.network["name"]
   virtual_network_name      = var.hub_vnets.hub_vnet_1.name
   remote_virtual_network_id = azurerm_virtual_network.spoke_vnets[each.value.reference_name].id
@@ -73,7 +73,7 @@ resource "azurerm_virtual_network_peering" "hub_to_spoke" {
 
 resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   for_each                  = var.spoke_vnets
-  name                      = "peering to ${var.hub_vnets["hub_vnet_1"].name}"
+  name                      = "PeeringTo${var.hub_vnets["hub_vnet_1"].name}"
   resource_group_name       = var.resource_groups.network["name"]
   virtual_network_name      = each.value.name
   remote_virtual_network_id = azurerm_virtual_network.hub_vnets["hub_vnet_1"].id
