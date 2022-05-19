@@ -18,9 +18,13 @@ variable "resource_groups" {
 variable "vnet" {
   type = map(any)
   default = {
-    shared_vnet = {
+    shared_vnet_1 = {
       name          = "vnet-shared-prod-westeu-001-tf"
       address_space = ["10.0.0.0/16"]
+    }
+    shared_vnet_2 = {
+      name          = "vnet-shared-prod-westeu-002-tf"
+      address_space = ["10.1.0.0/16"]
     }
 
   }
@@ -33,11 +37,18 @@ variable "subnet" {
     app_subnet = {
       name             = "app_subnet"
       address_prefixes = ["10.0.1.0/24"]
+      vnet             = "vnet-shared-prod-westeu-001-tf"
     },
     db_subnet = {
       name             = "db_subnet"
       address_prefixes = ["10.0.2.0/24"]
+      vnet             = "vnet-shared-prod-westeu-001-tf"
     }
+    app_subnet = {
+      name             = "app_subnet"
+      address_prefixes = ["10.1.1.0/24"]
+      vnet             = "vnet-shared-prod-westeu-002-tf"
+    },
   }
 }
 
