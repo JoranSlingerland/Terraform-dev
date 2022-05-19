@@ -15,16 +15,29 @@ variable "resource_groups" {
   }
 }
 
-variable "vnet" {
+variable "hub_vnets" {
   type = map(any)
   default = {
-    shared_vnet_1 = {
-      name          = "vnet-shared-prod-westeu-001-tf"
+    hub_vnet_1 = {
+      name          = "vnet-hub-prod-westeu-001-tf"
       address_space = ["10.0.0.0/16"]
     }
-    shared_vnet_2 = {
-      name          = "vnet-shared-prod-westeu-002-tf"
-      address_space = ["10.1.0.0/16"]
+
+  }
+}
+
+variable "spoke_vnets" {
+  type = map(any)
+  default = {
+    spoke_vnet_1 = {
+      name           = "vnet-spoke-prod-westeu-001-tf"
+      address_space  = ["10.1.0.0/16"]
+      reference_name = "spoke_vnet_1"
+    }
+    spoke_vnet_2 = {
+      name           = "vnet-spoke-prod-westeu-002-tf"
+      address_space  = ["10.2.0.0/16"]
+      reference_name = "spoke_vnet_2"
     }
 
   }
@@ -35,19 +48,19 @@ variable "subnet" {
   type        = map(any)
   default = {
     app_subnet = {
-      name             = "app_subnet"
-      address_prefixes = ["10.0.1.0/24"]
-      vnet             = "vnet-shared-prod-westeu-001-tf"
+      name             = "subnet1"
+      address_prefixes = ["10.1.0.0/24"]
+      vnet             = "vnet-spoke-prod-westeu-001-tf"
     },
     db_subnet = {
-      name             = "db_subnet"
-      address_prefixes = ["10.0.2.0/24"]
-      vnet             = "vnet-shared-prod-westeu-001-tf"
+      name             = "subnet2"
+      address_prefixes = ["10.2.0.0/24"]
+      vnet             = "vnet-spoke-prod-westeu-002-tf"
     }
     app_subnet = {
-      name             = "app_subnet"
-      address_prefixes = ["10.1.1.0/24"]
-      vnet             = "vnet-shared-prod-westeu-002-tf"
+      name             = "subnet3"
+      address_prefixes = ["10.0.0.0/24"]
+      vnet             = "vnet-hub-prod-westeu-001-tf"
     },
   }
 }
