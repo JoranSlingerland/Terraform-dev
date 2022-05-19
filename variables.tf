@@ -4,7 +4,7 @@ variable "region" {
   default = "westeurope"
 }
 variable "resource_groups" {
-  type = map(string)
+  type = map(any)
   default = {
     network = {
       name = "rg-network-prod-westeu-001-tf"
